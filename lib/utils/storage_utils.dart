@@ -5,17 +5,35 @@ class StorageUtils {
     return Directory('/storage/emulated/0/Pictures');
   }
 
-  static Directory createFaceCropFolder(String timestamp) {
-    final Directory picturesDir = getPicturesDirectory();
-    final Directory faceCropsDir = Directory('${picturesDir.path}/FaceCrops');
-    if (!faceCropsDir.existsSync()) {
-      faceCropsDir.createSync(recursive: true);
+  static Directory getFaceCropsDirectory() {
+    final dir = Directory('${getPicturesDirectory().path}/FaceCrops');
+    if (!dir.existsSync()) {
+      dir.createSync(recursive: true);
     }
+    return dir;
+  }
 
-    final Directory captureDir = Directory('${faceCropsDir.path}/capture_$timestamp');
+
+  static Directory createFaceCropFolder() {
+    final Directory faceCropsDir = getFaceCropsDirectory();
+
+    final DateTime now = DateTime.now();
+
+    final String formattedTimestamp =
+        '${now.year.toString().padLeft(4, '0')}-'
+        '${now.month.toString().padLeft(2, '0')}-'
+        '${now.day.toString().padLeft(2, '0')}_'
+        '${now.hour.toString().padLeft(2, '0')}-'
+        '${now.minute.toString().padLeft(2, '0')}-'
+        '${now.second.toString().padLeft(2, '0')}';
+
+    final Directory captureDir =
+        Directory('${faceCropsDir.path}/capture_$formattedTimestamp');
+
     if (!captureDir.existsSync()) {
       captureDir.createSync(recursive: true);
     }
+
     return captureDir;
   }
 }

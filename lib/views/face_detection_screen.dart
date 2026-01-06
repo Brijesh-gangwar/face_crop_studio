@@ -15,28 +15,47 @@ class FaceDetectionScreen extends StatelessWidget {
         return Stack(
           children: [
             Scaffold(
-              appBar: AppBar(title: const Text("Face Detection")),
+              appBar: AppBar(
+                title: const Text("Face Detection"),
+                actions: [
+              
+                  IconButton(
+                    icon: const Icon(Icons.cameraswitch),
+                    onPressed: () async {
+                      await vm.switchCamera();
+                    },
+                  ),
+                ],
+              ),
               body: vm.isCameraInitialized && vm.cameraController != null
                   ? CameraPreview(vm.cameraController!)
                   : const Center(child: CircularProgressIndicator()),
               floatingActionButton: FloatingActionButton(
-                onPressed: () async {
-                  final result = await vm.captureAndDetectFaces();
-                  if (result == null || result.count == 0) {
-                      showSnackBar(context: context, 
-                      message: 'No faces detected. Please try again.',
-                    );
-                  } else {
+                onPressed: vm.isProcessing
+                    ? null
+                    : () async {
+                        final result = await vm.captureAndDetectFaces();
 
-                    showSnackBar(context: context, 
-                      message: '${result.count} faces saved to: ${result.folderPath}',
-                    );
-                    Navigator.pop(context);
-                  }
-                },
+                        if (result == null || result.count == 0) {
+                          showSnackBar(
+                            context: context,
+                            message:
+                                'No faces detected. Please try again.',
+                          );
+                        } else {
+                          showSnackBar(
+                            context: context,
+                            message:
+                                '${result.count} faces saved successfully',
+                          );
+                          Navigator.pop(context);
+                        }
+                      },
                 child: const Icon(Icons.camera_alt),
               ),
             ),
+
+            
             if (vm.isProcessing)
               Container(
                 color: Colors.black54,

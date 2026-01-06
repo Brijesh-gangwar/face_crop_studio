@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../utils/permissions_utils.dart';
 import '../view_models/face_detection_viewmodel.dart';
 import 'face_detection_screen.dart';
+import 'faces_folder_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,6 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.folder_open),
               label: const Text('Open Last Folder'),
               onPressed: () => vm.openFacesFolder(context),
+            ),
+
+            SizedBox(height: 20),
+
+            ElevatedButton.icon(
+              icon: const Icon(Icons.photo_library),
+              label: const Text('Face Crops Folder'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const FacesFolderScreen()),
+                );
+              },
             ),
           ],
         ),
