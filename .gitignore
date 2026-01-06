@@ -43,3 +43,16 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/proguard-rules.pro
+/android/app/build.gradle.kts
+/android/app/keystore.jks
+
+.metadata
+analysis_options.yaml
+devtools_options.yaml
+pubspec.lock
+
+.vscode
+
+
+android/.gradle/
