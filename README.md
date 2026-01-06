@@ -1,5 +1,9 @@
 # 🧑‍💻 Face Detector Cropper
 
+<div align="center">
+  <img src="assets/icons/app_icon.png" alt="Face Detector Cropper" width="200" height="200">
+</div>
+
 A powerful Flutter app that uses **on-device AI (Google ML Kit)** to detect **each person's face** in a captured image, automatically crop them, and save the cropped faces to your phone storage — neatly organized by timestamped folders.
 
 Built with:
